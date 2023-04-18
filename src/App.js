@@ -1,12 +1,83 @@
 import logo from './logo.svg';
 import './App.css';
+import Nav from './views/Nav';
+import { useState, useEffect } from 'react';
+import Todo from './views/Todo';
+import Covid from './views/Covid';
 
-function App() {
+// template + logic
+// JSX
+const App = () => {
+  let [name, setName] = useState('Lionel')
+  const [address, setAddress] = useState('')
+  const [todos, setTodos] = useState([
+    {id: 'todo1', title:'watching channel', type: 'lionel'},
+    {id: 'todo2', title:'Doing homework', type: 'lionel'},
+    {id: 'todo3', title:'Playing game',  type: 'messi'},
+    {id: 'todo4', title:'Debug code',  type: 'messi'}
+
+  ]);
+
+  // khi thêm 1 mảng vào cuối hàm useEffect thì hàm này chỉ chạy 1 lần 
+  // duy nhất khi render lần đầu
+  // cách viết này tương đương với hàm didmount ở class compoment
+  // có thể tách ra thành nhiều hàm useEffect hoặc viết gộp mảng
+  useEffect(() => {
+    console.log('run use Effect');
+  }, [address]);
+
+  useEffect(() => {
+    console.log('run use Effect todos');
+  }, [todos]);
+
+  const handleEventClick = (event) => {
+    if(!address) {
+      alert('empty input')
+      return;
+    }
+    // hook not merge state
+    // ...spread syntax array js
+    let newTodo = {
+      id: Math.floor((Math.random()*100) + 1), 
+      title: address, 
+      type:'lionel' 
+    }
+    setTodos ([...todos, newTodo])
+    setAddress('')
+  };
+
+  const handleOnChangeInput = (event) => {
+    setAddress(event.target.value)
+  };
+
+  const deleteDataTodo = (id) => {
+    let currentTodos = todos;
+    currentTodos = currentTodos.filter(item => item.id !== id)
+    setTodos(currentTodos)
+  }
+
+  // re-render
   return (
     <div className="App">
       <header className="App-header">
+        <Nav/>
         <img src={logo} className="App-logo" alt="logo" />
-        <h1>Learn ReactHook with Lionel Messi</h1>
+        <h1>Learn ReactHook with {name} !</h1>
+        
+        <Covid/>
+
+        {/* <Todo
+          todos={todos}
+          title={'All todos'}
+          deleteDataTodo = {deleteDataTodo}
+        />
+        <Todo
+          todos={todos.filter(item => item.type === 'messi')}
+          title={`Messi's todos`}
+          deleteDataTodo = {deleteDataTodo}
+        />
+        <input type="text" value={address} onChange={(event) => handleOnChangeInput(event)}/>
+        <button type="button" onClick= {(event) => handleEventClick(event)}>Click me!</button> */}
       </header>
     </div>
   );
