@@ -1,60 +1,13 @@
-import { useEffect, useState } from "react";
-import axios from "axios";
-import moment from "moment";
+// import { useEffect, useState } from "react";
+import useFetch from "../customize/fetch";
 
 const Covid = () => {
 
-    const [ dataCovid, setDataCovid] = useState ([]);
-
-    const [isLoading, setIsLoading] = useState (true);
-
-    const [isError, setIsError] = useState (false);
-
-
-    // = với hàm componentDidMount
-    useEffect (async() => {
-        try {
-            // setTimeout(async() => {
-                let res = await axios.get('https://api.covid19api.com/country/vietnam?from=2021-10-01T00%3A00%3A00Z&to=2021-10-20T00%3A00%3A00Z')
-            
-                console.log('checkk res', res)
-                // dấu ? dùng để trả về true/false
-                let data = res && res.data ? res.data : []; 
-                // giải thích code dòng trên:
-                // nếu điều kiện (res && res.data) đúng (có giá trị) thì gán biến data = res.data
-                // cón nếu điều kiện (res && res.data) (không có giá trị) sai thì gán biến data = []
-
-
-                // nếu không dùng dấu ? thì có thể viết theo kiểu truyền thống bằng if/else
-                // let data = null;
-                // if (res && res.data) {
-                //     data = res.data;
-                // } else {
-                //     data =[]
-                // }
-        
-                if(data && data.length > 0) {
-                    data.map(item => {
-                        item.Date = moment(item.Date).format('DD/MM/YYYY');
-                        return item;
-                    })
-
-                    data = data.reverse()
-                    // .reverse() dùng để hiện thị ngược dữ liệu 
-                }
-
-                setDataCovid(data);
-                setIsLoading(false);
-                setIsError(false);
-
-            // }, 3000)
-        }
-        catch(e) {
-            setIsError(true);
-            setIsLoading(false);
-        }
-        
-    }, []);
+    const {data: dataCovid, isLoading, isError} = useFetch('https://api.covid19api.com/country/vietnam?from=2021-10-01T00%3A00%3A00Z&to=2021-10-20T00%3A00%3A00Z')
+    // vì ở useFetch trả ra là data nhưng bên đây lại là dataCovid
+    // nên gán giá trị dataCovid : data
+    // bằng cách trên hoặc dưới đều đúng
+    // let dataCovid = useFetch(url).data
 
     // vi dụ câu điều kiện
     // let x = 0;
