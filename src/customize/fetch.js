@@ -6,7 +6,7 @@ import moment from "moment";
 // bởi vì đang viết 1 customhook nên 
 // một cái customhook cần phải bắt đầu với keyword use
 // khi có keyword use thì react mới hiểu đây là customhook
-const useFetch = (url ) => {
+const useFetch = (url) => {
     const [ data, setData] = useState ([]);
 
     const [isLoading, setIsLoading] = useState (true);
@@ -59,9 +59,12 @@ const useFetch = (url ) => {
             setIsLoading(false);
         }
         
-    }, []);
+    },[url]);
 
-    
+    return {
+        data, isLoading, isError
+    }
+
 }
 
 export  default useFetch;

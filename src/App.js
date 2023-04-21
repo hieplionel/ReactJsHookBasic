@@ -4,6 +4,15 @@ import Nav from './views/Nav';
 import { useState, useEffect } from 'react';
 import Todo from './views/Todo';
 import Covid from './views/Covid';
+import {CountDown, NewCountDown} from './views/Countdown';
+
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
+
 
 // template + logic
 // JSX
@@ -56,30 +65,47 @@ const App = () => {
     setTodos(currentTodos)
   }
 
+  const onTimesUp = () => {
+    alert('Times Up')
+  }
+
   // re-render
   return (
-    <div className="App">
-      <header className="App-header">
-        <Nav/>
-        <img src={logo} className="App-logo" alt="logo" />
-        <h1>Learn ReactHook with {name} !</h1>
-        
-        <Covid/>
+    <Router>
+      <div className="App">
+        <header className="App-header">
+          <Nav/>
+          <img src={logo} className="App-logo" alt="logo" />
+        </header>
+        {/* A <Switch> looks through its children <Route>s and
+            renders the first one that matches the current URL. */}
+        <Switch>
+          <Route path="/" exact>
+            <Covid/>
+          </Route>
+          <Route path="/timer">
+            <CountDown onTimesUp={onTimesUp}/>
+            <span>-----------</span>
+            <NewCountDown onTimesUp={onTimesUp}/>
+          </Route>
+          <Route path="/todo">
+            <Todo
+              todos={todos}
+              title={'All todos'}
+              deleteDataTodo = {deleteDataTodo}
+            />
+            <Todo
+              todos={todos.filter(item => item.type === 'messi')}
+              title={`Messi's todos`}
+              deleteDataTodo = {deleteDataTodo}
+            />
+            <input type="text" value={address} onChange={(event) => handleOnChangeInput(event)}/>
+            <button type="button" onClick= {(event) => handleEventClick(event)}>Click me!</button>
+          </Route>
+        </Switch>
 
-        {/* <Todo
-          todos={todos}
-          title={'All todos'}
-          deleteDataTodo = {deleteDataTodo}
-        />
-        <Todo
-          todos={todos.filter(item => item.type === 'messi')}
-          title={`Messi's todos`}
-          deleteDataTodo = {deleteDataTodo}
-        />
-        <input type="text" value={address} onChange={(event) => handleOnChangeInput(event)}/>
-        <button type="button" onClick= {(event) => handleEventClick(event)}>Click me!</button> */}
-      </header>
-    </div>
+      </div>
+    </Router>
   );
 }
 
