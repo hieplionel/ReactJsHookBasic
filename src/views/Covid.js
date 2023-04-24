@@ -8,7 +8,7 @@ const Covid = () => {
     const today = moment().startOf('day').toISOString(true);
     const priorDate = moment().startOf('day').subtract(30, 'days').toISOString(true);
     const {data: dataCovid , isLoading, isError} 
-        = useFetch('https://api.covid19api.com/country/vietnam?from=2021-10-01T00%3A00%3A00Z&to=2021-11-30T00%3A00%3A00Z')
+        = useFetch('https://api.covid19api.com/country/vietnam?from=2021-10-01T00%3A00%3A00Z&to=2021-11-30T00%3A00%3A00Z', true)
 
         // useFetch ở dưới dùng để dùng với thời gian thực, hiện tại,
         // = useFetch(`https://api.covid19api.com/country/vietnam?from=${priorDate}&to=${today}`)

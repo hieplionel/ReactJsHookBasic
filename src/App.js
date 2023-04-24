@@ -5,6 +5,8 @@ import { useState, useEffect } from 'react';
 import Todo from './views/Todo';
 import Covid from './views/Covid';
 import {CountDown, NewCountDown} from './views/Countdown';
+import Blog from './views/Blog';
+import DetailBlog from './views/DetailBlog';
 
 import {
   BrowserRouter as Router,
@@ -32,11 +34,11 @@ const App = () => {
   // cách viết này tương đương với hàm didmount ở class compoment
   // có thể tách ra thành nhiều hàm useEffect hoặc viết gộp mảng
   useEffect(() => {
-    console.log('run use Effect');
+    // console.log('run use Effect');
   }, [address]);
 
   useEffect(() => {
-    console.log('run use Effect todos');
+    // console.log('run use Effect todos');
   }, [todos]);
 
   const handleEventClick = (event) => {
@@ -101,6 +103,12 @@ const App = () => {
             />
             <input type="text" value={address} onChange={(event) => handleOnChangeInput(event)}/>
             <button type="button" onClick= {(event) => handleEventClick(event)}>Click me!</button>
+          </Route>
+          <Route path="/blog" exact>
+            <Blog/>
+          </Route>
+          <Route path="/blog/:id">
+            <DetailBlog/>
           </Route>
         </Switch>
 

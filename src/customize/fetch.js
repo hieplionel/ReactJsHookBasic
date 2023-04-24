@@ -6,7 +6,7 @@ import moment from "moment";
 // bởi vì đang viết 1 customhook nên 
 // một cái customhook cần phải bắt đầu với keyword use
 // khi có keyword use thì react mới hiểu đây là customhook
-const useFetch = (url) => {
+const useFetch = (url, isCovidData) => {
     const [ data, setData] = useState ([]);
 
     const [isLoading, setIsLoading] = useState (true);
@@ -40,7 +40,7 @@ const useFetch = (url) => {
                 //     data =[]
                 // }
             
-                if(data && data.length > 0) {
+                if(data && data.length > 0 && isCovidData === true) {
                     data.map(item => {
                         item.Date = moment(item.Date).format('DD/MM/YYYY');
                         return item;
@@ -53,6 +53,7 @@ const useFetch = (url) => {
                 setData(data);
                 setIsLoading(false);
                 setIsError(false);
+                // ở đây có 3 lần set lại State nên component render lại 3 lần
             }
 
                 // fetchData();
