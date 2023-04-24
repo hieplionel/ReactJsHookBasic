@@ -7,6 +7,12 @@ class CountDown extends React.Component {
         count: 10
     }
 
+    componentWillUnmount() {
+        if (this.timer) {
+            clearInterval(this.timer);
+        }
+    }
+
     componentDidMount() {
         // hàm setTiomeout chỉ chạy 1 lần
         // setTimeout( () => {
