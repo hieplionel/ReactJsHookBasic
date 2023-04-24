@@ -1,9 +1,34 @@
-import {useParams} from "react-router-dom";
+import {useParams, useHistory} from "react-router-dom";
+import useFetch from "../customize/fetch";
+import './Blog.scss';
 
 const DetailBlog = () => {
     let {id} = useParams();
+    let history = useHistory();
+
+    const {data: dataBlogDetail , isLoading, isError} 
+    = useFetch(`https://jsonplaceholder.typicode.com/posts/${id}`, false)
+
+    const handleBackData = () => {
+        history.push("/blog");
+    }
     return (
-        <h1>Hello detail blog with id = {id}</h1>
+        <>
+        <button onClick={handleBackData}>&lt;-- back</button>
+        <div className="blog-detail">
+            {dataBlogDetail /*&& dataBlogDetail.length > 0*/ &&
+            <>
+                <div className="title">
+                    Blog ID: {id} --- {isLoading === true ? 'Loading Data...' : dataBlogDetail.title} 
+                </div>
+                <div className="content">
+                    {dataBlogDetail.body}
+                </div> 
+            </>
+            }
+        </div>
+        </>
+        
     )
 }
 

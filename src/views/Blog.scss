@@ -24,5 +24,21 @@
 
     .blogs-loading {
         text-align: center !important;
+        width: 100%;
+        font-size: 20px;
+    }
+}
+
+.blog-detail {
+    border: 1px solid grey;
+    padding: 10px;
+    border-radius: 10px;
+    margin: 10px;
+    min-height: 100px;
+    .title{
+
+    }
+    .content{
+        padding-top: 10px;
     }
 }
