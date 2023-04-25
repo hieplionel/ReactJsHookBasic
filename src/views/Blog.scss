@@ -10,12 +10,20 @@
         border-radius: 10px;
         padding: 10px;
         margin: 0 10px;     
-        max-width: 578px;
+        max-width: 613px;
+        min-width: 613px;
         text-align: left !important;
 
         .title {
+            display: flex;
+            flex-direction: row;
             font-size: 18px;
             font-weight: 600;
+            justify-content: space-between;
+
+            .right {
+                cursor: pointer;
+            }
         }
         .content {
             padding: 10px 0;
