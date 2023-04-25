@@ -1,6 +1,6 @@
 import useFetch from "../customize/fetch";
 import "./Blog.scss";
-import {Link} from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
 
 const Blog = () => {
     const { data: dataBlogs , isLoading, isError } 
@@ -12,25 +12,36 @@ const Blog = () => {
         newData = dataBlogs.slice(0,12)
     }
 
-    return (
-        <div className="blogs-container">
-            {isLoading === false && newData && newData.length > 0 && newData.map(item => {
-                return (
-                    <div className="single-blog" key={item.id}>
-                        <div className="title">Title: {item.title}</div>
-                        <div className="content">{item.body}</div>
-                        <button>
-                            <Link to={`/blog/${item.id}`}>View detail</Link>
-                            
-                        </button>
-                    </div>
-                )
-            })}
+    let history = useHistory();
 
-            {isLoading === true && 
-            <div className="blogs-loading">Loading data...</div>
-            }
-        </div>
+    const handleAddNew = () => {
+        history.push('/add-new-blog')
+    }
+
+    return (
+        <>
+            <div>
+                <button className="btn-add-new" onClick={handleAddNew}>+ Add new blog</button>
+            </div>
+            <div className="blogs-container">
+                {isLoading === false && newData && newData.length > 0 && newData.map(item => {
+                    return (
+                        <div className="single-blog" key={item.id}>
+                            <div className="title">Title: {item.title}</div>
+                            <div className="content">{item.body}</div>
+                            <button>
+                                <Link to={`/blog/${item.id}`}>View detail</Link>
+                                
+                            </button>
+                        </div>
+                    )
+                })}
+
+                {isLoading === true && 
+                <div className="blogs-loading">Loading data...</div>
+                }
+            </div>
+        </>
         
     )
 }
