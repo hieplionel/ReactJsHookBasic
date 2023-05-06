@@ -1,6 +1,6 @@
 import {useParams, useHistory} from "react-router-dom";
 import useFetch from "../customize/fetch";
-import './Blog.scss';
+import '../style/Blog.scss';
 
 const DetailBlog = () => {
     let {id} = useParams();

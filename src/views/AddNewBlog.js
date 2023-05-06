@@ -1,4 +1,4 @@
-import './AddNewBlog.scss';
+import '../style/AddNewBlog.scss';
 import { useState } from 'react';
 import axios from 'axios';
 
